@@ -1,0 +1,17 @@
+# Dockerデータ
+docker/mysql/data/
+docker/rensyu
+
+# Laravel環境ファイル
+src/.env
+src/vendor/
+src/storage/framework/cache/
+src/storage/framework/views/
+src/storage/logs/
+
+# システムファイル
+.DS_Store
+.idea/
+.vscode/
+*.swp
+*.swo
