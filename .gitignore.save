@@ -1,0 +1,5 @@
+# Dockerデータ
+docker/mysql/data/
+docker/rensysu
+# Laravel環境ファイル
+src/.env

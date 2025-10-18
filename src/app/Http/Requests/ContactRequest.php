@@ -24,15 +24,15 @@ class ContactRequest extends FormRequest
     public function rules()
     {
         return [
-            'category_id' => ['required']
-            'first_name' =>['required']
-            'last_name' =>['required']
-            'gender' =>['required']
-            'email' =>['required']
-            'tel' =>['required']
-            'address' =>['required']
-            'building' =>['required']
-            'detail' =>['required']
+           'category_id' => 'required|exists:categories,id',
+        'first_name' => 'required|string|max:255',
+        'last_name' => 'required|string|max:255',
+        'gender' => 'required|integer',
+        'email' => 'required|email|max:255',
+        'tel' => 'required|string|max:255',
+        'address' => 'required|string|max:255',
+        'detail' => 'required|string',
+        'building' => 'nullable|string|max:255', 
         ];
     }
 
@@ -40,7 +40,14 @@ class ContactRequest extends FormRequest
      public function messages()
      {
          return [
-             'email.required' => 'メールアドレスはメール形式で入力してください',
+              'first_name' => 'required|string|max:255',
+        'last_name' => 'required|string|max:255',
+        'gender' => 'required|in:1,2,3',
+        'email' => 'required|email|max:255',
+        'tel' => 'required|string|max:255',
+        'address' => 'required|string|max:255',
+        'category_id' => 'required',
+        'detail' => 'required|string|max:120',
              
          ];
      }
