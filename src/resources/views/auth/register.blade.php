@@ -1,65 +1,59 @@
-@extends('layouts.app')
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>会員登録</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+    <div class="min-h-screen flex items-center justify-center">
+        <div class="bg-white p-8 rounded-lg shadow-md w-96">
+            <h1 class="text-2xl font-bold mb-6 text-center">会員登録</h1>
+            
+            <form method="POST" action="/register">
+                @csrf
+                
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2">名前</label>
+                    <input type="text" name="name" required 
+                           class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2">メールアドレス</label>
+                    <input type="email" name="email" required 
+                           class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2">パスワード</label>
+                    <input type="password" name="password" required 
+                           class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                
+                <div class="mb-6">
+                    <label class="block text-gray-700 text-sm font-bold mb-2">パスワード確認</label>
+                    <input type="password" name="password_confirmation" required 
+                           class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                
+                <button type="submit" 
+                        class="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    登録する
+                </button>
+            </form>
 
-@section('content')
-<div class="row justify-content-center">
-    <div class="col-md-6">
-        <div class="auth-container">
-            <div class="auth-header">
-                <h2 class="mb-0">📝 Register</h2>
-            </div>
-            <div class="auth-body">
-                <form method="POST" action="{{ route('register') }}">
-                    @csrf
-
-                    <!-- お名前 -->
-                    <div class="mb-4">
-                        <label for="name" class="form-label fw-semibold">お名前</label>
-                        <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" 
-                               name="name" value="{{ old('name') }}" required autocomplete="name" autofocus
-                               placeholder="小山 洋介">
-                        @error('name')
-                            <div class="error-message">{{ $message }}</div>
-                        @enderror
-                    </div>
-
-                    <!-- メールアドレス -->
-                    <div class="mb-4">
-                        <label for="email" class="form-label fw-semibold">メールアドレス</label>
-                        <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" 
-                               name="email" value="{{ old('email') }}" required autocomplete="email"
-                               placeholder="example@mail.com">
-                        @error('email')
-                            <div class="error-message">{{ $message }}</div>
-                        @enderror
-                    </div>
-
-                    <!-- パスワード -->
-                    <div class="mb-4">
-                        <label for="password" class="form-label fw-semibold">パスワード</label>
-                        <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" 
-                               name="password" required autocomplete="new-password"
-                               placeholder="8文字以上で入力">
-                        @error('password')
-                            <div class="error-message">{{ $message }}</div>
-                        @enderror
-                    </div>
-
-                    <!-- 登録ボタン -->
-                    <div class="d-grid mb-3">
-                        <button type="submit" class="btn btn-primary btn-lg">
-                            ✅ 登録
-                        </button>
-                    </div>
-
-                    <!-- ログインリンク -->
-                    <div class="text-center">
-                        <a href="{{ route('login') }}" class="text-decoration-none">
-                            既にアカウントをお持ちの方はこちら
-                        </a>
-                    </div>
-                </form>
-            </div>
+            @if ($errors->any())
+                <div class="mt-4 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
         </div>
     </div>
-</div>
-@endsection
+</body>
+</html>
