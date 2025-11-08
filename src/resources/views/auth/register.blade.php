@@ -1,59 +1,76 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>会員登録</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-gray-100">
-    <div class="min-h-screen flex items-center justify-center">
-        <div class="bg-white p-8 rounded-lg shadow-md w-96">
-            <h1 class="text-2xl font-bold mb-6 text-center">会員登録</h1>
-            
-            <form method="POST" action="/register">
-                @csrf
-                
-                <div class="mb-4">
-                    <label class="block text-gray-700 text-sm font-bold mb-2">名前</label>
-                    <input type="text" name="name" required 
-                           class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-                </div>
-                
-                <div class="mb-4">
-                    <label class="block text-gray-700 text-sm font-bold mb-2">メールアドレス</label>
-                    <input type="email" name="email" required 
-                           class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-                </div>
-                
-                <div class="mb-4">
-                    <label class="block text-gray-700 text-sm font-bold mb-2">パスワード</label>
-                    <input type="password" name="password" required 
-                           class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-                </div>
-                
-                <div class="mb-6">
-                    <label class="block text-gray-700 text-sm font-bold mb-2">パスワード確認</label>
-                    <input type="password" name="password_confirmation" required 
-                           class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-                </div>
-                
-                <button type="submit" 
-                        class="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                    登録する
-                </button>
-            </form>
+@extends('layouts.app')
 
-            @if ($errors->any())
-                <div class="mt-4 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
+@section('css')
+<link rel="stylesheet" href="{{ asset('css/register.css') }}">
+@endsection
+
+@section('content')
+<div class="register-form__content">
+  <div class="register-form__heading">
+    <h2>会員登録</h2>
+  </div>
+  <form class="form">
+    <div class="form__group">
+      <div class="form__group-title">
+        <span class="form__label--item">お名前</span>
+      </div>
+      <div class="form__group-content">
+        <div class="form__input--text">
+          <input type="text" name="name" value="{{ old('name') }}" />
         </div>
+        <div class="form__error">
+          @error('name')
+          {{ $message }}
+          @enderror
+        </div>
+      </div>
     </div>
-</body>
-</html>
+    <div class="form__group">
+      <div class="form__group-title">
+        <span class="form__label--item">メールアドレス</span>
+      </div>
+      <div class="form__group-content">
+        <div class="form__input--text">
+          <input type="email" name="email" value="{{ old('email') }}" />
+        </div>
+        <div class="form__error">
+          @error('email')
+          {{ $message }}
+          @enderror
+        </div>
+      </div>
+    </div>
+    <div class="form__group">
+      <div class="form__group-title">
+        <span class="form__label--item">パスワード</span>
+      </div>
+      <div class="form__group-content">
+        <div class="form__input--text">
+          <input type="password" name="password" />
+        </div>
+        <div class="form__error">
+          @error('password')
+          {{ $message }}
+          @enderror
+        </div>
+      </div>
+    </div>
+    <div class="form__group">
+      <div class="form__group-title">
+        <span class="form__label--item">確認用パスワード</span>
+      </div>
+      <div class="form__group-content">
+        <div class="form__input--text">
+          <input type="password" name="password_confirmation" />
+        </div>
+      </div>
+    </div>
+    <div class="form__button">
+      <button class="form__button-submit" type="submit">登録</button>
+    </div>
+  </form>
+  <div class="login__link">
+    <a class="login__button-submit" href="/login">ログインの方はこちら</a>
+  </div>
+</div>
+@endsection
